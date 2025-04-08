@@ -586,10 +586,17 @@
       </article>
     </div>
   </section>
+
+  <div>{{ isLoading }}</div>
+  <div>{{ products }}</div>
 </template>
 
 <script lang="ts" setup>
-import { tesloApi } from '@/api/tesloAip';
+import { getProductsActions } from '@/modules/products/actions';
+import { useQuery } from '@tanstack/vue-query';
 
-tesloApi;
+const { data: products, isLoading } = useQuery({
+  queryKey: ['products', { page: 1 }],
+  queryFn: () => getProductsActions(),
+});
 </script>
