@@ -27,7 +27,7 @@
         <p class="mt-1 text-sm text-slate-400 capitalize">{{ product.gender }}</p>
 
         <div class="mt-3 flex items-end justify-between">
-          <p class="text-lg font-bold text-blue-500">{{ product.price }}</p>
+          <p class="text-lg font-bold text-blue-500">${{ product.price }}</p>
 
           <div
             class="flex items-center space-x-1.5 rounded-lg bg-blue-500 px-4 py-1.5 text-white duration-100 hover:bg-blue-600"
