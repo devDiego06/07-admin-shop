@@ -1,5 +1,6 @@
 import { tesloApi } from '@/api/tesloAip';
 import type { Product } from './interfaces/product.interface';
+import { getProductImageActions } from './get-product-image.action';
 
 export const getProductsActions = async (page: number = 1, limit: number = 10) => {
   try {
@@ -8,7 +9,12 @@ export const getProductsActions = async (page: number = 1, limit: number = 10) =
     );
     console.log(data);
 
-    return data;
+    return data.map((product) => {
+      return {
+        ...product,
+        images: product.images.map(getProductImageActions),
+      };
+    });
   } catch (error) {
     console.log(error);
 

@@ -586,9 +586,6 @@
       </article>
     </div>
   </section>
-
-  <div>{{ isLoading }}</div>
-  <div>{{ products }}</div>
 </template>
 
 <script lang="ts" setup>
