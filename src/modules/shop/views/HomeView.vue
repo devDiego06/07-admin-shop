@@ -106,24 +106,40 @@
 
 <script lang="ts" setup>
 import { getProductsActions } from '@/modules/products/actions';
-import { useQuery } from '@tanstack/vue-query';
+import {  useQuery, useQueryClient } from '@tanstack/vue-query';
 import ProductList from '../components/ProductList.vue';
 import ButtonPagination from '@/modules/common/components/ButtonPagination.vue';
 import { useRoute } from 'vue-router';
-import { ref, watch } from 'vue';
+import { ref, watch, watchEffect } from 'vue';
 
 const route = useRoute();
 const page = ref(Number(route.query.page || 1));
+const queryClient = useQueryClient();
 
+//Fetch products, the page is passed as a parameter of queryFn
 const { data: products = [] } = useQuery({
   queryKey: ['products', { page: page }],
   queryFn: () => getProductsActions(page.value),
 });
 
+//Is utilized to change the page when the user click the next button
 watch(
   () => route.query.page,
   (newPage) => {
     page.value = Number(newPage)
+
+    window.scrollTo({top: 0, behavior: 'smooth'})
+
   }
 )
+
+// Prefetch the next page of products when the current page changes, and allow that page can be charged when the user click the next button
+watchEffect(() => {
+  queryClient.prefetchQuery({
+    queryKey: ['products', { page: page.value + 1 }],
+    queryFn: () => getProductsActions(page.value + 1)
+  })
+})
+
+
 </script>
