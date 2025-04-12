@@ -15,7 +15,7 @@
 
     <!-- Username Input -->
     <div class="mb-4">
-      <label for="username" class="block text-gray-600">Username</label>
+      <label for="username" class="block text-gray-600">Email</label>
       <input
         type="text"
         id="username"

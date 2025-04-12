@@ -1,13 +1,15 @@
 <template>
   <h1 class="text-2xl font-semibold mb-4">Login</h1>
-  <form action="#" method="POST">
+  <!-- .prevent avoid that page be recharged when the accion its executed-->
+  <form @submit.prevent="onLogin">
     <!-- Username Input -->
     <div class="mb-4">
-      <label for="username" class="block text-gray-600">Username</label>
+      <label for="username" class="block text-gray-600">Email</label>
       <input
+        v-model="myForm.username"
         type="text"
-        id="username"
-        name="username"
+        id="email"
+        name="email"
         class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
         autocomplete="off"
       />
@@ -16,6 +18,7 @@
     <div class="mb-4">
       <label for="password" class="block text-gray-600">Password</label>
       <input
+        v-model="myForm.password"
         type="password"
         id="password"
         name="password"
@@ -34,8 +37,7 @@
     </div>
     <!-- Login Button -->
     <button
-      @click="onLogin"
-      type="button"
+      type="submit"
       class="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md py-2 px-4 w-full"
     >
       Login
@@ -48,18 +50,14 @@
 </template>
 
 <script lang="ts" setup>
-import { useRouter } from 'vue-router';
+import { reactive } from 'vue';
 
-const router = useRouter();
+//Is utilized reactive becase is better yo use for save arrays or objetcs. For this reason we use reactive and not ref
+const myForm = reactive({
+  username: '',
+  password: '',
+  remembder: false,
+});
 
-const onLogin = () => {
-  localStorage.setItem('userId', 'ABC-123');
-
-  const lastPath = localStorage.getItem('lastPath') ?? '/';
-
-  // router.replace({
-  //   // name: 'home',
-  // });
-  router.replace(lastPath);
-};
+const onLogin = () => {};
 </script>
