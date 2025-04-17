@@ -78,8 +78,8 @@ const authStore = useAuthStore();
 const toast = useToast();
 
 const onRegister = async () => {
-  if (myForm.fullName === '') {
-    emailInputRef.value?.focus();
+  if ((myForm.fullName.length < 2) ||  (myForm.fullName.length > 20) || (myForm.fullName === '')) {
+    nameInputRef.value?.focus();
   }
 
   if (myForm.email === '') {
