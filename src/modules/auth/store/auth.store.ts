@@ -31,12 +31,10 @@ export const useAuthStore = defineStore('auth', () => {
     }
   };
 
-  const checkAuthStatus = async():Promise<boolean> => {
-
+  const checkAuthStatus = async (): Promise<boolean> => {
     try {
-
       const statusResp = await checkAuthAction();
-      if(!statusResp.ok){
+      if (!statusResp.ok) {
         logOut();
         return false;
       }
@@ -46,23 +44,20 @@ export const useAuthStore = defineStore('auth', () => {
       user.value = statusResp.user;
 
       return true;
-
     } catch (error) {
+      console.log(error);
+
       logOut();
       return false;
     }
-
-
-
-  }
-
+  };
 
   const register = async (fullName: string, email: string, password: string) => {
     try {
       const registerResp = await registerAction(fullName, email, password);
 
       if (!registerResp.ok) {
-        OutRegister();
+        logOut();
         return false;
       }
 
@@ -73,20 +68,15 @@ export const useAuthStore = defineStore('auth', () => {
       return true;
     } catch (error) {
       console.log(error);
-      OutRegister();
+      logOut();
     }
-  };
-
-  const OutRegister = () => {
-    token.value = '';
-    user.value = undefined;
-    authStatus.value = AuthStatus.UnAuthenticated;
   };
 
   const logOut = () => {
     token.value = '';
     authStatus.value = AuthStatus.UnAuthenticated;
     user.value = undefined;
+    return false;
   };
 
   return {

@@ -7,15 +7,15 @@ const isNotAuthenticatedGuard = async (
   from: RouteLocationNormalized,
   next: NavigationGuardNext,
 ) => {
-
-
   const authStore = useAuthStore();
 
+  await authStore.checkAuthStatus();
   console.log(authStore.authStatus);
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-  authStore.authStatus === AuthStatus.Authenticated ? next({name: 'home'}) : next();
-
+  if (authStore.authStatus === AuthStatus.Authenticated) {
+    return next({ name: 'home' });
+  } else {
+    return next();
+  }
 
   // const userId = localStorage.getItem('userId');
   // localStorage.setItem('lastPath', to.path);
