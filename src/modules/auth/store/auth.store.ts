@@ -73,9 +73,12 @@ export const useAuthStore = defineStore('auth', () => {
   };
 
   const logOut = () => {
+    localStorage.removeItem('token');
     token.value = '';
     authStatus.value = AuthStatus.UnAuthenticated;
     user.value = undefined;
+    console.log('Usuario Cerrado');
+
     return false;
   };
 
@@ -90,11 +93,12 @@ export const useAuthStore = defineStore('auth', () => {
     isAuthenticated: computed(() => authStatus.value === AuthStatus.Authenticated),
 
     //TODO: add a getter for know if the user is admin or not
-
+    isAdmin: computed(() => user.value?.roles.includes('admin') ?? false),
     username: computed(() => user.value?.fullName),
 
     //METHODS - ACTIONS
     login,
+    logOut,
     register,
     checkAuthStatus,
   };
