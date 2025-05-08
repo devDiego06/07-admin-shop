@@ -1,5 +1,5 @@
 import { tesloApi } from '@/api/tesloAip';
-import type { Product } from './interfaces/product.interface';
+import type { Product } from '../interfaces/product.interface';
 import { getProductImageActions } from './get-product-image.action';
 
 export const getProductsActions = async (page: number = 1, limit: number = 10) => {

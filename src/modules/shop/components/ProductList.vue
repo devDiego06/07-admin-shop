@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Product } from '@/modules/products/actions/interfaces/product.interface';
+import type { Product } from '@/modules/products/interfaces/product.interface';
 import ProductCard from './ProductCard.vue';
 
 interface Props {
